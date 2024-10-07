@@ -16,7 +16,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Clear Cache
+        run: rm -rf ~/.cache
+
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -36,7 +39,7 @@ jobs:
           name: cypress-screenshots-and-videos
           path: cypress/screenshots,cypress/videos
 
-      - name: Upload Test Results
+      - name: Archive Test Results
         if: always()
         uses: actions/upload-artifact@v3
         with:
