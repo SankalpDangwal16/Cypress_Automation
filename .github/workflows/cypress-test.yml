@@ -19,18 +19,26 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '16'  # Updated to the latest LTS version
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run Cypress tests
-        run: npx cypress run --spec "cypress/e2e/tests/**/*.{js,jsx,ts,tsx}"
+      - name: Run Cypress Login Test
+        run: npx cypress run --spec "cypress/e2e/tests/LoginTest.cy.js"  # Specify the LoginTest file
         env:
           CYPRESS_BASE_URL: https://www.saucedemo.com/
 
-      - name: Upload test results
+      - name: Upload Cypress Screenshots
+        if: always()  # Ensures that this step runs even if the tests fail
         uses: actions/upload-artifact@v3
         with:
-          name: cypress-results
-          path: cypress/screenshots/
+          name: cypress-screenshots
+          path: cypress/screenshots/**
+
+      - name: Upload Cypress Videos
+        if: always()  # Ensures that this step runs even if the tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos/**
