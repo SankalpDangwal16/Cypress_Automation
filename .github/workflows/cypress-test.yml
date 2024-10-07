@@ -14,13 +14,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Clear Cache
-        run: rm -rf ~/.cache
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
 
@@ -28,20 +25,12 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npx cypress run --spec "cypress/e2e/tests/**/*.{js,jsx,ts,tsx}"
         env:
           CYPRESS_BASE_URL: https://www.saucedemo.com/
 
-      - name: Upload Cypress Screenshots and Videos
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-screenshots-and-videos
-          path: cypress/screenshots,cypress/videos
-
-      - name: Archive Test Results
-        if: always()
+      - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
           name: cypress-results
-          path: cypress/reports
+          path: cypress/screenshots/
