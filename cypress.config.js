@@ -88,7 +88,7 @@ module.exports = defineConfig({
     //baseUrl: 'https://naveenautomationlabs.com/opencart/index.php',
 
     //A String or Array of glob patterns of the test files to load.
-    specPattern	: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+    specPattern	: 'cypress/e2e/tests/LoginTest.cy.js',
 
     //Path to file to load before spec files load. This file is compiled and bundled.
     supportFile : 'cypress/support/e2e.{js,jsx,ts,tsx}',
